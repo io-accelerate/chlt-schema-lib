@@ -1,4 +1,4 @@
-package io.accelerate.challenge.definition.validate;
+package io.accelerate.challenge.definition.validator;
 
 import com.github.erosb.jsonsKema.ValidationFailure;
 

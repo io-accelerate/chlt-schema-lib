@@ -18,8 +18,10 @@ dependencies {
     // JSON Schema validation
     implementation 'com.github.erosb:json-sKema:0.19.0'
 
+    // Testing
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
 }
 
 test {

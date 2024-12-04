@@ -4,14 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import io.accelerate.challenge.definition.schema.Challenge;
+import io.accelerate.challenge.definition.schema.ChallengeBase;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-// TODO: Move all to separate libs repo and publish to Maven Central
 public class ChallengeDefinitionWriter {
 
     private final File destinationDirectory;
@@ -20,7 +19,7 @@ public class ChallengeDefinitionWriter {
         this.destinationDirectory = destinationDirectory;
     }
 
-    public Path writeChallengeToFile(Challenge challenge) throws IOException {
+    public Path writeChallengeToFile(ChallengeBase challenge) throws IOException {
         Path filePath = destinationDirectory.toPath()
                 .resolve(challenge.getId())
                 .resolve("v"+challenge.getVersion())

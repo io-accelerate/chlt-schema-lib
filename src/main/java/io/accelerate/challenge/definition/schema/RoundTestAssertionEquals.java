@@ -1,7 +1,6 @@
-package io.accelerate.challenge.definition.schema.assertions;
+package io.accelerate.challenge.definition.schema;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.accelerate.challenge.definition.schema.RoundTestAssertion;
 
 public class RoundTestAssertionEquals implements RoundTestAssertion {
     @JsonProperty("equals")
