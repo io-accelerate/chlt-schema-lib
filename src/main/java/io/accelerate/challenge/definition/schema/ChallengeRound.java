@@ -9,17 +9,17 @@ import io.accelerate.challenge.definition.schema.serializers.StripTrailingSpaces
 import java.util.List;
 
 @JsonPropertyOrder({"id", "description", "methods", "tests"})
-public class ChallengeRoundBase {
+public class ChallengeRound {
     private final String id;
     private final String description;
     private final MethodDefinitions methods;
     private final List<RoundTest> tests;
 
     @JsonCreator
-    public ChallengeRoundBase(@JsonProperty("id") String id,
-                              @JsonProperty("description") String description,
-                              @JsonProperty("methods") MethodDefinitions methods,
-                              @JsonProperty("tests") List<RoundTest> tests) {
+    public ChallengeRound(@JsonProperty("id") String id,
+                          @JsonProperty("description") String description,
+                          @JsonProperty("methods") MethodDefinitions methods,
+                          @JsonProperty("tests") List<RoundTest> tests) {
         this.id = id;
         this.description = description;
         this.methods = methods;

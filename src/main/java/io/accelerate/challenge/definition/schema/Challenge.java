@@ -8,18 +8,18 @@ import io.accelerate.challenge.definition.Constants;
 import java.util.List;
 
 @JsonPropertyOrder({"$schema", "id", "version", "name", "rounds"})
-public class ChallengeBase {
+public class Challenge {
     private final String id;
     private final Integer version;
     private final String name;
-    private final List<ChallengeRoundBase> rounds;
+    private final List<ChallengeRound> rounds;
 
     @JsonCreator
-    public ChallengeBase(
+    public Challenge(
             @JsonProperty("id") String id,
             @JsonProperty("version") Integer version,
             @JsonProperty("name") String name,
-            @JsonProperty("rounds") List<ChallengeRoundBase> rounds) {
+            @JsonProperty("rounds") List<ChallengeRound> rounds) {
         this.id = id;
         this.version = version;
         this.name = name;
@@ -47,7 +47,7 @@ public class ChallengeBase {
     }
 
     @JsonProperty("rounds")
-    public List<ChallengeRoundBase> getRounds() {
+    public List<ChallengeRound> getRounds() {
         return rounds;
     }
 }

@@ -23,11 +23,11 @@ class ChallengeDefinitionAcceptanceTest {
     @Test
     void shouldWriteValidateAndParse() throws Exception {
         // Create a challenge
-        ChallengeBase originalChallenge = new ChallengeBase(
+        Challenge originalChallenge = new Challenge(
                 "TST",
                 1,
                 "A test challenge",
-                List.of(new ChallengeRoundBase(
+                List.of(new ChallengeRound(
                         "TST_R1",
                         "A test round",
                         MethodDefinitions.of(new MethodDefinition("someMethod", List.of(String.class), Integer.class)),
@@ -53,7 +53,7 @@ class ChallengeDefinitionAcceptanceTest {
 
         // Deserialize using ChallengeDefinitionLoader
         ChallengeDefinitionLoader loader = new ChallengeDefinitionLoader();
-        ChallengeBase loadedChallenge = loader.fromFile(writtenChallengeFilePath);
+        Challenge loadedChallenge = loader.fromFile(writtenChallengeFilePath);
 
         // Compare with original
         assertThat(loadedChallenge, samePropertyValuesAs(originalChallenge));

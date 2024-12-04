@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import io.accelerate.challenge.definition.schema.ChallengeBase;
+import io.accelerate.challenge.definition.schema.Challenge;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class ChallengeDefinitionWriter {
         this.destinationDirectory = destinationDirectory;
     }
 
-    public Path writeChallengeToFile(ChallengeBase challenge) throws IOException {
+    public Path writeChallengeToFile(Challenge challenge) throws IOException {
         Path filePath = destinationDirectory.toPath()
                 .resolve(challenge.getId())
                 .resolve("v"+challenge.getVersion())
