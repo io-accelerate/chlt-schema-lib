@@ -5,9 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
-import static org.junit.jupiter.api.Assertions.*;
+import static io.accelerate.challenge.definition.utils.AssertionUtils.assertDeserializesToIdenticalObject;
+import static io.accelerate.challenge.definition.utils.AssertionUtils.assertSerializesTo;
 
 class RoundTestTest {
 
@@ -16,14 +15,21 @@ class RoundTestTest {
         RoundTest roundTest = new RoundTest(
                 "TST_R1_T1",
                 new MethodCall("someMethod",  List.of(1, 2, 3)),
-                new RoundTestAssertionEquals(1)
+                new RoundTestAssertion(RoundTestAssertionType.EQUALS, 123)
         );
 
-        ObjectMapper mapper = new ObjectMapper();
-        String serialised = mapper.writeValueAsString(roundTest);
-        RoundTest deserializedChallenge = mapper.readValue(serialised, RoundTest.class);
-
-        assertNotNull(deserializedChallenge);
-        assertThat(deserializedChallenge, samePropertyValuesAs(roundTest));
+        assertSerializesTo("""
+                {
+                  "id" : "TST_R1_T1",
+                  "call" : {
+                    "method" : "someMethod",
+                    "args" : [ 1, 2, 3 ]
+                  },
+                  "expect" : {
+                    "equals" : 123
+                  }
+                }
+                """, roundTest);
+        assertDeserializesToIdenticalObject(roundTest, roundTest.getClass());
     }
 }

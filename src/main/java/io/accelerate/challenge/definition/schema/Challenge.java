@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.accelerate.challenge.definition.Constants;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({"$schema", "id", "version", "name", "rounds"})
@@ -51,5 +53,30 @@ public class Challenge {
     @JsonProperty("rounds")
     public List<ChallengeRound> getRounds() {
         return rounds;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Challenge.class.getSimpleName() + "[", "]")
+                .add("id='" + id + "'")
+                .add("version=" + version)
+                .add("name='" + name + "'")
+                .add("rounds=" + rounds)
+                .toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Challenge challenge = (Challenge) o;
+        return Objects.equals(id, challenge.id) &&
+                Objects.equals(version, challenge.version) &&
+                Objects.equals(name, challenge.name) &&
+                Objects.equals(rounds, challenge.rounds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, version, name, rounds);
     }
 }

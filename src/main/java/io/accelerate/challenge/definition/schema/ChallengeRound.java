@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.accelerate.challenge.definition.schema.serializers.StripTrailingSpaces;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
 @JsonPropertyOrder({"id", "description", "methods", "tests"})
 @SuppressWarnings("ClassCanBeRecord")
@@ -46,5 +48,30 @@ public class ChallengeRound {
     @JsonProperty("tests")
     public List<RoundTest> getTests() {
         return tests;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", ChallengeRound.class.getSimpleName() + "[", "]")
+                .add("id='" + id + "'")
+                .add("description='" + description + "'")
+                .add("methods=" + methods)
+                .add("tests=" + tests)
+                .toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ChallengeRound that = (ChallengeRound) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(methods, that.methods) &&
+                Objects.equals(tests, that.tests);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, methods, tests);
     }
 }

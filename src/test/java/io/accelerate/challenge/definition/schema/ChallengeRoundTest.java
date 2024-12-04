@@ -1,13 +1,12 @@
 package io.accelerate.challenge.definition.schema;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import io.accelerate.challenge.definition.utils.AssertionUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
-import static org.junit.jupiter.api.Assertions.*;
+import static io.accelerate.challenge.definition.utils.AssertionUtils.assertDeserializesToIdenticalObject;
+import static io.accelerate.challenge.definition.utils.AssertionUtils.assertSerializesTo;
 
 class ChallengeRoundTest {
 
@@ -21,11 +20,37 @@ class ChallengeRoundTest {
                 List.of()
         );
 
-        ObjectMapper mapper = new ObjectMapper();
-        String serialised = mapper.writeValueAsString(challengeRound);
-        ChallengeRound deserializedChallenge = mapper.readValue(serialised, ChallengeRound.class);
+        assertSerializesTo("""
+                {
+                  "id" : "TST_R1",
+                  "description" : "A test round",
+                  "methods" : [ {
+                    "name" : "someMethod",
+                    "params" : [ "string" ],
+                    "returns" : "integer"
+                  } ],
+                  "tests" : [ ]
+                }
+                """, challengeRound);
 
-        assertNotNull(deserializedChallenge);
-        assertThat(deserializedChallenge, samePropertyValuesAs(challengeRound));
+        assertDeserializesToIdenticalObject(challengeRound, challengeRound.getClass());
     }
+
+    @Test
+    void shouldTrimDescription() throws Exception {
+        ChallengeRound challengeRound = new ChallengeRound(
+                "TST_R1",
+                "A test round  \n sdssfsdf   \n    ",
+                new MethodDefinitions(),
+                List.of()
+        );
+        assertSerializesTo("""
+                {
+                  "id" : "TST_R1",
+                  "description" : "A test round\\n sdssfsdf\\n",
+                  "methods" : [ ],
+                  "tests" : [ ]
+                }""", challengeRound);
+    }
+
 }

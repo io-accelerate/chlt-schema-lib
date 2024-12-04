@@ -1,13 +1,11 @@
 package io.accelerate.challenge.definition.schema;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static io.accelerate.challenge.definition.utils.AssertionUtils.assertDeserializesToIdenticalObject;
+import static io.accelerate.challenge.definition.utils.AssertionUtils.assertSerializesTo;
 
 class ChallengeTest {
 
@@ -20,11 +18,15 @@ class ChallengeTest {
                 List.of()
         );
 
-        ObjectMapper mapper = new ObjectMapper();
-        String serialised = mapper.writeValueAsString(challenge);
-        Challenge deserializedChallenge = mapper.readValue(serialised, Challenge.class);
-
-        assertNotNull(deserializedChallenge);
-        assertThat(deserializedChallenge, samePropertyValuesAs(challenge));
+        assertSerializesTo("""
+                {
+                  "$schema" : "https://get.accelerate.io/challenge-toolkit/schema/version/0.1.4/schema.yaml",
+                  "id" : "TST",
+                  "version" : 1,
+                  "name" : "Test Challenge",
+                  "rounds" : [ ]
+                }
+                """, challenge);
+        assertDeserializesToIdenticalObject(challenge, challenge.getClass());
     }
 }

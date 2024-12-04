@@ -11,6 +11,7 @@ import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Path;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
@@ -35,10 +36,10 @@ class ChallengeDefinitionAcceptanceTest {
                         List.of(
                                 new RoundTest("TST_R1_1",
                                         new MethodCall("someMethod", List.of("foo")),
-                                        new RoundTestAssertionEquals(123)),
+                                        new RoundTestAssertion(RoundTestAssertionType.EQUALS, 123)),
                                 new RoundTest("TST_R1_2",
                                         new MethodCall("someMethod", List.of("bar")),
-                                        new RoundTestAssertionEquals(456))
+                                        new RoundTestAssertion(RoundTestAssertionType.EQUALS, 456))
                         ))
                 )
         );
@@ -57,5 +58,5 @@ class ChallengeDefinitionAcceptanceTest {
         Challenge loadedChallenge = loader.fromFile(writtenChallengeFilePath);
 
         // Compare with original
-        assertThat(loadedChallenge, samePropertyValuesAs(originalChallenge));
+        assertThat(loadedChallenge, equalTo(originalChallenge));
     }}
