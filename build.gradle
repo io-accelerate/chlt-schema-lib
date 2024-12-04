@@ -1,12 +1,21 @@
 plugins {
-    id 'java'
+    // Ref here: https://docs.gradle.org/7.4.1/userguide/publishing_setup.html
+    id 'java-library'
+    id 'signing'
+    id 'maven-publish'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 group = 'io.accelerate'
-version = '1.0-SNAPSHOT'
+version = project.version.toString()
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -26,4 +35,73 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+// Suppress Javadoc warnings
+javadoc {
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+// Refs:
+// https://stackoverflow.com/a/68505768
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.java
+            pom {
+                name = 'Java client for TDL system'
+                description = 'A Java client that allows users to get up to speed with the TDL system.'
+                url = 'https://github.com/io-accelerate/chlt-schema-lib'
+                licenses {
+                    license {
+                        name = 'Apache License, Version 2.0'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'Iulian (Julian) Ghionoiu'
+                        email = 'iulian.ghionoiu@gmail.com'
+                        organization = 'Accelerate Systems'
+                        organizationUrl = 'https://github.com/io-accelerate'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git@github.com:io-accelerate/chlt-schema-lib.git'
+                    developerConnection = 'scm:git:git@github.com:io-accelerate/chlt-schema-lib.git'
+                    url = 'git@github.com:io-accelerate/chlt-schema-lib.git'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            // TODO Sort out the deployment to Maven Central
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            // TODO The Central uses API keys as opposed to creds
+            credentials {
+                username = project.findProperty('mavenCentralUsername')
+                password = project.findProperty('mavenCentralPassword')
+            }
+        }
+    }
+}
+
+// Signs using gpg-agent
+// Key name configured under "~/.gradle/gradle.properties"
+//
+// Refs:
+// https://docs.gradle.org/7.4.1/userguide/signing_plugin.html#sec:using_gpg_agent
+signing {
+    useGpgCmd()
+    sign publishing.publications.release
 }
