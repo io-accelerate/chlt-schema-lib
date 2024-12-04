@@ -9,5 +9,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({"id", "call", "expect"})
 public record RoundTest(@JsonProperty("id") String id,
                         @JsonProperty("call") MethodCall methodCall,
-                        @JsonProperty("expect") RoundTestAssertion roundTestAssertion) {
+                        @JsonProperty("expect")
+                        RoundTestAssertion roundTestAssertion) {
+
 }

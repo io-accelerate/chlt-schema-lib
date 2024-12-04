@@ -1,12 +1,14 @@
 package io.accelerate.challenge.definition.schema;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.accelerate.challenge.definition.Constants;
 
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({"$schema", "id", "version", "name", "rounds"})
 public class Challenge {
     private final String id;

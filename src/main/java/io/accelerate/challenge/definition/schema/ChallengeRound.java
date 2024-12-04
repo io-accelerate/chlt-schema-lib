@@ -9,6 +9,7 @@ import io.accelerate.challenge.definition.schema.serializers.StripTrailingSpaces
 import java.util.List;
 
 @JsonPropertyOrder({"id", "description", "methods", "tests"})
+@SuppressWarnings("ClassCanBeRecord")
 public class ChallengeRound {
     private final String id;
     private final String description;

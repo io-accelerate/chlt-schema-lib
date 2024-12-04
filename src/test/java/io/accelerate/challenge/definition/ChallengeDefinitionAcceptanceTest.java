@@ -1,5 +1,6 @@
-package io.accelerate.challenge.definition.loader;
+package io.accelerate.challenge.definition;
 
+import io.accelerate.challenge.definition.loader.ChallengeDefinitionLoader;
 import io.accelerate.challenge.definition.schema.*;
 import io.accelerate.challenge.definition.validator.ChallengeDefinitionValidator;
 import io.accelerate.challenge.definition.validator.ValidationResult;
