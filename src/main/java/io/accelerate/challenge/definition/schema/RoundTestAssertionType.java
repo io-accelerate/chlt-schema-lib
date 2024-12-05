@@ -1,9 +1,15 @@
 package io.accelerate.challenge.definition.schema;
 
 public enum RoundTestAssertionType {
-    EQUALS,
-    CONTAINS,
+    EQUALS("equals"),
+    CONTAINS_STRING("containsString"),
     ;
+
+    private final String printableName;
+
+    RoundTestAssertionType(String printableName) {
+        this.printableName = printableName;
+    }
 
     public static RoundTestAssertionType fromPrintableName(String name) {
         for (RoundTestAssertionType type : RoundTestAssertionType.values()) {
@@ -15,6 +21,6 @@ public enum RoundTestAssertionType {
     }
 
     public String toPrintableName() {
-        return this.name().toLowerCase();
+        return this.printableName;
     }
 }
