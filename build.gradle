@@ -15,7 +15,6 @@ version = project.version.toString()
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 dependencies {

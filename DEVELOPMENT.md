@@ -12,24 +12,22 @@ Create publishing bundle into Maven Local
 
 Check Maven Local contains release version:
 ```
-ls -l $HOME/.m2/repository/io/accelerate/chlt-schema-lib/$(cat gradle.properties | grep version | cut -d "=" -f2)
+CURRENT_VERSION=$(cat gradle.properties | grep version | cut -d "=" -f2)
+
+ls -l $HOME/.m2/repository/io/accelerate/chlt-schema-lib/${CURRENT_VERSION}
 ```
 
-Publish to Maven Central Staging repo
 
-### Publish to Maven Central
+### Publish to Maven Central - the manual way
 
-Publish to Maven Central Staging repo
-```bash
-./gradlew publish
+At this point publishing to Maven Central from Gradle is only possible manually.
+Things might have changed, check this page:
+https://central.sonatype.org/publish/publish-portal-gradle/
+
+Generate the Maven Central bundle:
+```
+./generateMavenCentralBundle.sh
 ```
 
-A Staging repository is created automatically:
-https://oss.sonatype.org/#stagingRepositories
-
-To promote to the Live repo, do the following:
-- "Close" the Staging repo, Sonatype Lift will scan the repo for vuln, check the email
-- "Refresh" the Staging repos
-- "Release" the repo
-- wait between 15 mins and up to 2 hours for the new version to appear in Central
-- check: https://repo1.maven.org/maven2/ro/ghionoiu/tdl-client-java/
+Upload the bundle to Maven Central by clicking the "Publish Component" button.
+https://central.sonatype.com/publishing
