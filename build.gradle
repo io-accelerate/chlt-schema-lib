@@ -88,9 +88,7 @@ publishing {
     }
     repositories {
         maven {
-            // TODO Sort out the deployment to Maven Central
             url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            // TODO The Central uses API keys as opposed to creds
             credentials {
                 username = project.findProperty('mavenCentralUsername')
                 password = project.findProperty('mavenCentralPassword')
