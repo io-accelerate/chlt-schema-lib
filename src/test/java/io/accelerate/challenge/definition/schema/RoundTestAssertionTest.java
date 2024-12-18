@@ -31,4 +31,16 @@ class RoundTestAssertionTest {
                 """, object);
         assertDeserializesToIdenticalObject(object, object.getClass());
     }
+
+    @Test
+    void shouldSerializeAndDeserializeWithContainsIgnoringCase() throws JsonProcessingException {
+        RoundTestAssertion object = new RoundTestAssertion(RoundTestAssertionType.CONTAINS_STRING_IGNORING_CASE, "some_value");
+
+        assertSerializesTo("""
+                {
+                  "containsStringIgnoringCase" : "some_value"
+                }
+                """, object);
+        assertDeserializesToIdenticalObject(object, object.getClass());
+    }
 }

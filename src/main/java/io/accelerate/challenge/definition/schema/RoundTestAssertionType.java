@@ -3,6 +3,7 @@ package io.accelerate.challenge.definition.schema;
 public enum RoundTestAssertionType {
     EQUALS("equals"),
     CONTAINS_STRING("containsString"),
+    CONTAINS_STRING_IGNORING_CASE("containsStringIgnoringCase"),
     ;
 
     private final String printableName;
