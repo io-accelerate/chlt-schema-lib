@@ -21,6 +21,18 @@ class RoundTestAssertionTest {
     }
 
     @Test
+    void shouldSerializeAndDeserializeWithNullEquals() throws JsonProcessingException {
+        RoundTestAssertion object = new RoundTestAssertion(RoundTestAssertionType.EQUALS, null);
+
+        assertSerializesTo("""
+                {
+                  "equals" : null
+                }
+                """, object);
+        assertDeserializesToIdenticalObject(object, object.getClass());
+    }
+
+    @Test
     void shouldSerializeAndDeserializeWithContains() throws JsonProcessingException {
         RoundTestAssertion object = new RoundTestAssertion(RoundTestAssertionType.CONTAINS_STRING, "some_value");
 
