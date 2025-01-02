@@ -55,4 +55,16 @@ class RoundTestAssertionTest {
                 """, object);
         assertDeserializesToIdenticalObject(object, object.getClass());
     }
+
+    @Test
+    void shouldSerializeAndDeserializeWithNullCheck() throws JsonProcessingException {
+        RoundTestAssertion object = new RoundTestAssertion(RoundTestAssertionType.IS_NULL, true);
+
+        assertSerializesTo("""
+                {
+                  "isNull" : true
+                }
+                """, object);
+        assertDeserializesToIdenticalObject(object, object.getClass());
+    }
 }

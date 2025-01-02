@@ -2,26 +2,27 @@ package io.accelerate.challenge.definition.schema;
 
 public enum RoundTestAssertionType {
     EQUALS("equals"),
+    IS_NULL("isNull"),
     CONTAINS_STRING("containsString"),
     CONTAINS_STRING_IGNORING_CASE("containsStringIgnoringCase"),
     ;
 
-    private final String printableName;
+    private final String displayName;
 
-    RoundTestAssertionType(String printableName) {
-        this.printableName = printableName;
+    RoundTestAssertionType(String displayName) {
+        this.displayName = displayName;
     }
 
-    public static RoundTestAssertionType fromPrintableName(String name) {
+    public static RoundTestAssertionType fromDisplayName(String name) {
         for (RoundTestAssertionType type : RoundTestAssertionType.values()) {
-            if (type.toPrintableName().equals(name)) {
+            if (type.toDisplayName().equals(name)) {
                 return type;
             }
         }
         throw new IllegalArgumentException("No enum constant " + RoundTestAssertionType.class.getName() + "." + name);
     }
 
-    public String toPrintableName() {
-        return this.printableName;
+    public String toDisplayName() {
+        return this.displayName;
     }
 }

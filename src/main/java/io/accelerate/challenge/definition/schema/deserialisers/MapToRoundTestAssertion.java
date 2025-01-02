@@ -15,7 +15,7 @@ public class MapToRoundTestAssertion extends JsonDeserializer<RoundTestAssertion
         Map<?,?> map = deserializationContext.readValue(jsonParser, Map.class);
         String firstKey = (String) map.keySet().toArray()[0];
         RoundTestAssertionType roundTestAssertionType =
-                RoundTestAssertionType.fromPrintableName(firstKey);
+                RoundTestAssertionType.fromDisplayName(firstKey);
 
         return new RoundTestAssertion(roundTestAssertionType, map.get(firstKey));
     }

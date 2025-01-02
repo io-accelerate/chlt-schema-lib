@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import static io.accelerate.challenge.definition.utils.JsonUtils.asJsonNode;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -48,6 +49,11 @@ class ObjectTypeTest {
         assertThat(objectType.isCompatible(asJsonNode(new SomeObject(1, "text"))), equalTo(true));
     }
 
+    @Test
+    void isNotCompatibleWithMapType() {
+        assertThat(objectType.isCompatible(asJsonNode(Map.of("X", 1))), equalTo(false));
+    }
+    
     @Test
     void isNotCompatibleWithPrimitiveType() {
         assertThat(objectType.isCompatible(asJsonNode(3)), equalTo(false));

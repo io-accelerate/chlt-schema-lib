@@ -13,7 +13,7 @@ public class RoundTestAssertionToString extends JsonSerializer<RoundTestAssertio
     @Override
     public void serialize(RoundTestAssertion roundTestAssertion, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         HashMap<String, Object> objectObjectHashMap = new HashMap<>();
-        objectObjectHashMap.put(roundTestAssertion.type().toPrintableName(), roundTestAssertion.value());
+        objectObjectHashMap.put(roundTestAssertion.type().toDisplayName(), roundTestAssertion.value());
         jsonGenerator.writeObject(objectObjectHashMap);
     }
 }

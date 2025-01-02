@@ -45,8 +45,14 @@ public class ObjectType implements TypeDefinition {
     public boolean isCompatible(JsonNode jsonNode) {
         if (jsonNode.isObject()) {
             return objectFields.stream()
-                    .allMatch(fieldDefinition -> fieldDefinition.typeDefinition().
-                            isCompatible(jsonNode.get(fieldDefinition.fieldName())));
+                    .allMatch(fieldDefinition -> {
+                        JsonNode fieldNode = jsonNode.get(fieldDefinition.fieldName());
+                        if (fieldNode != null) {
+                            return fieldDefinition.typeDefinition().isCompatible(fieldNode);
+                        } else {
+                            return false;
+                        }
+                    });
         } else {
             return false;
         }

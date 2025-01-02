@@ -11,5 +11,4 @@ import io.accelerate.challenge.definition.schema.serializers.RoundTestAssertionT
 @JsonDeserialize(using = MapToRoundTestAssertion.class)
 public record RoundTestAssertion(RoundTestAssertionType type,
                                  Object value) {
-
 }
