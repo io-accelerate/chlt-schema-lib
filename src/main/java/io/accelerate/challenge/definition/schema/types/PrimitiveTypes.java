@@ -1,5 +1,6 @@
 package io.accelerate.challenge.definition.schema.types;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.accelerate.challenge.definition.schema.TypeDefinition;
 
 import java.util.List;
@@ -38,5 +39,21 @@ public enum PrimitiveTypes implements TypeDefinition {
     @Override
     public String getDisplayName() {
         return displayName;
+    }
+
+    @Override
+    public boolean isCompatible(JsonNode jsonNode) {
+        switch (this) {
+            case STRING -> {
+                return jsonNode.isTextual();
+            }
+            case INTEGER -> {
+                return jsonNode.isIntegralNumber();
+            }
+            case BOOLEAN -> {
+                return jsonNode.isBoolean();
+            }
+            default -> throw new IllegalArgumentException("Unknown primitive type: " + this);
+        }
     }
 }

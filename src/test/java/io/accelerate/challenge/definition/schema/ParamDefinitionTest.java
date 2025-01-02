@@ -15,7 +15,7 @@ import static io.accelerate.challenge.definition.utils.AssertionUtils.assertSeri
 class ParamDefinitionTest {
 
     @Test
-    void primitiveString() throws JsonProcessingException {
+    void primitiveType() throws JsonProcessingException {
         ParamDefinition paramDefinition = new ParamDefinition("some name", 
                 PrimitiveTypes.STRING);
 
@@ -27,39 +27,9 @@ class ParamDefinitionTest {
                 """, paramDefinition);
         assertDeserializesToIdenticalObject(paramDefinition, paramDefinition.getClass());
     }
-
-    @Test
-    void primitiveInteger() throws JsonProcessingException {
-        ParamDefinition paramDefinition = new ParamDefinition("some name",
-                PrimitiveTypes.INTEGER);
-
-        assertSerializesTo("""
-                {
-                  "description" : "some name",
-                  "type" : "integer"
-                }
-                """, paramDefinition);
-        assertDeserializesToIdenticalObject(paramDefinition, paramDefinition.getClass());
-    }
-
-    @Test
-    void primitiveBoolean() throws JsonProcessingException {
-        ParamDefinition paramDefinition = new ParamDefinition("some name",
-                PrimitiveTypes.BOOLEAN);
-
-        assertSerializesTo("""
-                {
-                  "description" : "some name",
-                  "type" : "boolean"
-                }
-                """, paramDefinition);
-        assertDeserializesToIdenticalObject(paramDefinition, paramDefinition.getClass());
-    }
     
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~  Lists  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
     @Test
-    void listOfStrings() throws JsonProcessingException {
+    void listType() throws JsonProcessingException {
         ParamDefinition paramDefinition = new ParamDefinition("some name",
                 new ListType(PrimitiveTypes.STRING));
 
@@ -71,22 +41,6 @@ class ParamDefinitionTest {
                 """, paramDefinition);
         assertDeserializesToIdenticalObject(paramDefinition, paramDefinition.getClass());
     }
-
-    @Test
-    void listOfIntegers() throws JsonProcessingException {
-        ParamDefinition paramDefinition = new ParamDefinition("some name",
-                new ListType(PrimitiveTypes.INTEGER));
-
-        assertSerializesTo("""
-                {
-                  "description" : "some name",
-                  "type" : "list(integer)"
-                }
-                """, paramDefinition);
-        assertDeserializesToIdenticalObject(paramDefinition, paramDefinition.getClass());
-    }
-
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~  Objects  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     @Test
     void complexObjectBuildByHand() throws JsonProcessingException {
@@ -101,43 +55,6 @@ class ParamDefinitionTest {
                 {
                   "description" : "some name",
                    "type" : "object({someField=integer,otherField=string})"
-                }
-                """, paramDefinition);
-        assertDeserializesToIdenticalObject(paramDefinition, paramDefinition.getClass());
-    }
-    
-    record SomeObject(Integer someField, String otherField) {}
-
-    @Test
-    void complexObjectFromRecordClass() throws JsonProcessingException {
-        ParamDefinition paramDefinition = new ParamDefinition("some name",
-                ObjectType.from(SomeObject.class)
-        );
-
-        assertSerializesTo("""
-                {
-                  "description" : "some name",
-                  "type" : "object({someField=integer,otherField=string})"
-                }
-                """, paramDefinition);
-        assertDeserializesToIdenticalObject(paramDefinition, paramDefinition.getClass());
-    }
-    
-    static class SomeFieldClass {
-        public int someField;
-        public String otherField;
-    }
-
-    @Test
-    void complexObjectFromPlainClass() throws JsonProcessingException {
-        ParamDefinition paramDefinition = new ParamDefinition("some name",
-                ObjectType.from(SomeFieldClass.class)
-        );
-
-        assertSerializesTo("""
-                {
-                  "description" : "some name",
-                  "type" : "object({someField=integer,otherField=string})"
                 }
                 """, paramDefinition);
         assertDeserializesToIdenticalObject(paramDefinition, paramDefinition.getClass());

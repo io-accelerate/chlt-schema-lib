@@ -1,6 +1,6 @@
 package io.accelerate.challenge.definition.schema.types;
 
-import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.accelerate.challenge.definition.schema.TypeDefinition;
 
 import java.lang.reflect.Field;
@@ -39,6 +39,17 @@ public class ObjectType implements TypeDefinition {
                 .map(fieldDefinition -> fieldDefinition.fieldName() + "=" + fieldDefinition.typeDefinition().getDisplayName())
                 .collect(Collectors.joining(","));
         return "object({"+collectedFields+"})";
+    }
+
+    @Override
+    public boolean isCompatible(JsonNode jsonNode) {
+        if (jsonNode.isObject()) {
+            return objectFields.stream()
+                    .allMatch(fieldDefinition -> fieldDefinition.typeDefinition().
+                            isCompatible(jsonNode.get(fieldDefinition.fieldName())));
+        } else {
+            return false;
+        }
     }
 
     @Override

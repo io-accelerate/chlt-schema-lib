@@ -12,9 +12,7 @@ import io.accelerate.challenge.definition.schema.types.PrimitiveTypes;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class StringToType extends JsonDeserializer<TypeDefinition> {
     @Override
@@ -39,8 +37,7 @@ public class StringToType extends JsonDeserializer<TypeDefinition> {
                 fieldDefinitions.add(new FieldDefinition(fieldName, PrimitiveTypes.fromDisplayName(fieldType)));
             }
             return new ObjectType(fieldDefinitions);
-        }
-        else {
+        } else {
             return PrimitiveTypes.fromDisplayName(value);
         }
     }
