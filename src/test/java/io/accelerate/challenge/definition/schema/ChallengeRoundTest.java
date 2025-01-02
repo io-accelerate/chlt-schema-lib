@@ -1,6 +1,6 @@
 package io.accelerate.challenge.definition.schema;
 
-import io.accelerate.challenge.definition.utils.AssertionUtils;
+import io.accelerate.challenge.definition.schema.types.PrimitiveTypes;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,7 +16,9 @@ class ChallengeRoundTest {
         ChallengeRound challengeRound = new ChallengeRound(
                 "TST_R1",
                 "A test round",
-                MethodDefinitions.of(new MethodDefinition("someMethod", List.of(String.class), Integer.class)),
+                MethodDefinitions.of(new MethodDefinition("someMethod", 
+                        List.of(new ParamDefinition("some input", PrimitiveTypes.STRING)), 
+                        new ParamDefinition("result", PrimitiveTypes.INTEGER))),
                 List.of()
         );
 
@@ -26,8 +28,14 @@ class ChallengeRoundTest {
                   "description" : "A test round",
                   "methods" : [ {
                     "name" : "someMethod",
-                    "params" : [ "string" ],
-                    "returns" : "integer"
+                    "params" : [ {
+                      "description" : "some input",
+                      "type" : "string"
+                    } ],
+                    "returns" : {
+                      "description" : "result",
+                      "type" : "integer"
+                    }
                   } ],
                   "tests" : [ ]
                 }

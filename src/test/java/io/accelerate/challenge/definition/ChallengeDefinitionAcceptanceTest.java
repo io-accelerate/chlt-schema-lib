@@ -2,6 +2,7 @@ package io.accelerate.challenge.definition;
 
 import io.accelerate.challenge.definition.loader.ChallengeDefinitionLoader;
 import io.accelerate.challenge.definition.schema.*;
+import io.accelerate.challenge.definition.schema.types.PrimitiveTypes;
 import io.accelerate.challenge.definition.validator.ChallengeDefinitionValidator;
 import io.accelerate.challenge.definition.validator.ValidationResult;
 import io.accelerate.challenge.definition.writer.ChallengeDefinitionWriter;
@@ -14,7 +15,6 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
 
 
 class ChallengeDefinitionAcceptanceTest {
@@ -32,7 +32,9 @@ class ChallengeDefinitionAcceptanceTest {
                 List.of(new ChallengeRound(
                         "TST_R1",
                         "A test round",
-                        MethodDefinitions.of(new MethodDefinition("someMethod", List.of(String.class), Integer.class)),
+                        MethodDefinitions.of(new MethodDefinition("someMethod",
+                                List.of(new ParamDefinition("some input", PrimitiveTypes.STRING)),
+                                new ParamDefinition("result", PrimitiveTypes.INTEGER))),
                         List.of(
                                 new RoundTest("TST_R1_1",
                                         new MethodCall("someMethod", List.of("foo")),
