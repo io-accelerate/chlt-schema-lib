@@ -1,20 +1,20 @@
 package io.accelerate.challenge.definition.schema.types;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import io.accelerate.challenge.definition.schema.TypeDefinition;
 
+import java.util.List;
+
 public enum PrimitiveTypes implements TypeDefinition {
-    STRING("string", String.class), 
-    INTEGER("integer", Integer.class), 
-    BOOLEAN("boolean", Boolean.class);
+    STRING("string", List.of(String.class)), 
+    INTEGER("integer", List.of(Integer.class, int.class)), 
+    BOOLEAN("boolean", List.of(Boolean.class, boolean.class));
 
     private final String displayName;
-    private final Class<?> referencedClass;
+    private final List<Class<?>> compatibleClasses;
 
-    PrimitiveTypes(String displayName, Class<?> referencedClass) {
+    PrimitiveTypes(String displayName, List<Class<?>> compatibleClasses) {
         this.displayName = displayName;
-        this.referencedClass = referencedClass;
+        this.compatibleClasses = compatibleClasses;
     }
     
     public static PrimitiveTypes fromDisplayName(String displayName) {
@@ -28,7 +28,7 @@ public enum PrimitiveTypes implements TypeDefinition {
 
     public static PrimitiveTypes fromReferencedClass(Class<?> referencedClass) {
         for (PrimitiveTypes type : values()) {
-            if (type.referencedClass.equals(referencedClass)) {
+            if (type.compatibleClasses.contains(referencedClass)) {
                 return type;
             }
         }

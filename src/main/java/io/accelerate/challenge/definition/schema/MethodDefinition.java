@@ -8,5 +8,5 @@ import java.util.List;
 @JsonPropertyOrder({"name", "params", "returns"})
 public record MethodDefinition(@JsonProperty("name") String name,
                                @JsonProperty("params") List<ParamDefinition> parameterDefinitions,
-                               @JsonProperty("returns") ParamDefinition returnParamDefinition) {
+                               @JsonProperty("returns") ReturnDefinition returnDefinition) {
 }

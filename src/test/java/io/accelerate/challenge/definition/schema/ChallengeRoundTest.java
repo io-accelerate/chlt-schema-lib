@@ -18,7 +18,7 @@ class ChallengeRoundTest {
                 "A test round",
                 MethodDefinitions.of(new MethodDefinition("someMethod", 
                         List.of(new ParamDefinition("some input", PrimitiveTypes.STRING)), 
-                        new ParamDefinition("result", PrimitiveTypes.INTEGER))),
+                        new ReturnDefinition("result", PrimitiveTypes.INTEGER))),
                 List.of()
         );
 

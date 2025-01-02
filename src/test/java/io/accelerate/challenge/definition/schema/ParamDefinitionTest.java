@@ -11,8 +11,6 @@ import java.util.List;
 
 import static io.accelerate.challenge.definition.utils.AssertionUtils.assertDeserializesToIdenticalObject;
 import static io.accelerate.challenge.definition.utils.AssertionUtils.assertSerializesTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 
 class ParamDefinitionTest {
 
@@ -126,7 +124,7 @@ class ParamDefinitionTest {
     }
     
     static class SomeFieldClass {
-        public Integer someField;
+        public int someField;
         public String otherField;
     }
 
