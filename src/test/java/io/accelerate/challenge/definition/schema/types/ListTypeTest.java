@@ -37,4 +37,11 @@ class ListTypeTest {
 
         assertThat(listType.isCompatible(asJsonNode(List.of("x", "y"))), equalTo(false));
     }
+
+    @Test
+    void isNotCompatibleWithNullType() {
+        ListType listType = new ListType(PrimitiveTypes.INTEGER);
+
+        assertThat(listType.isCompatible(asJsonNode(null)), equalTo(false));
+    }
 }

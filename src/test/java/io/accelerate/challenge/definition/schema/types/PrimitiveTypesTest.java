@@ -37,6 +37,11 @@ class PrimitiveTypesTest {
         assertThat(PrimitiveTypes.STRING.isCompatible(asJsonNode(List.of("x", "y"))), equalTo(false));
     }
 
+    @Test
+    void stringNotCompatibleWithNull() {
+        assertThat(PrimitiveTypes.STRING.isCompatible(asJsonNode(null)), equalTo(false));
+    }
+
     // ~~~~~  Integer  ~~~~~
 
     @Test
@@ -73,7 +78,12 @@ class PrimitiveTypesTest {
     void integerNotCompatibleWithArray() {
         assertThat(PrimitiveTypes.INTEGER.isCompatible(asJsonNode(List.of(1, 2))), equalTo(false));
     }
-    
+
+
+    @Test
+    void integerNotCompatibleWithNull() {
+        assertThat(PrimitiveTypes.INTEGER.isCompatible(asJsonNode(null)), equalTo(false));
+    }
 
     // ~~~~~  Boolean  ~~~~~
     
@@ -106,5 +116,9 @@ class PrimitiveTypesTest {
     void booleanNotCompatibleWithArray() {
         assertThat(PrimitiveTypes.BOOLEAN.isCompatible(asJsonNode(List.of(true, false))), equalTo(false));
     }
-    
+
+    @Test
+    void booleanNotCompatibleWithNull() {
+        assertThat(PrimitiveTypes.BOOLEAN.isCompatible(asJsonNode(null)), equalTo(false));
+    }
 }

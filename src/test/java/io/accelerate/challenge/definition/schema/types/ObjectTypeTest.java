@@ -1,5 +1,6 @@
 package io.accelerate.challenge.definition.schema.types;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -9,14 +10,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 class ObjectTypeTest {
+    ObjectType objectType;
+
+    @BeforeEach
+    void setUp() {
+        objectType = new ObjectType(
+                List.of(new FieldDefinition("fieldInteger", PrimitiveTypes.INTEGER),
+                        new FieldDefinition("fieldString", PrimitiveTypes.STRING)
+                ));
+    }
 
     @Test
     void displayName() {
-        ObjectType objectType = new ObjectType(
-                List.of(new FieldDefinition("fieldInteger", PrimitiveTypes.INTEGER), 
-                        new FieldDefinition("fieldString", PrimitiveTypes.STRING)
-                ));
-
         assertThat(objectType.getDisplayName(), equalTo("object({fieldInteger=integer,fieldString=string})"));
     }
 
@@ -25,11 +30,7 @@ class ObjectTypeTest {
 
     @Test
     void fromRecordClass() {
-        ObjectType expectedObjectType = new ObjectType(
-                List.of(new FieldDefinition("fieldInteger", PrimitiveTypes.INTEGER),
-                        new FieldDefinition("fieldString", PrimitiveTypes.STRING)
-                ));
-        assertThat(ObjectType.from(SomeObject.class), equalTo(expectedObjectType));
+        assertThat(ObjectType.from(SomeObject.class), equalTo(objectType));
     }
 
     static class SomeFieldClass {
@@ -39,35 +40,26 @@ class ObjectTypeTest {
 
     @Test
     void fromPlainClass() {
-        ObjectType expectedObjectType = new ObjectType(
-                List.of(new FieldDefinition("fieldInteger", PrimitiveTypes.INTEGER),
-                        new FieldDefinition("fieldString", PrimitiveTypes.STRING)
-                ));
-        assertThat(ObjectType.from(SomeFieldClass.class), equalTo(expectedObjectType));
+        assertThat(ObjectType.from(SomeFieldClass.class), equalTo(objectType));
     }
 
     @Test
     void isCompatibleWithMatchingObject() {
-        ObjectType objectType = new ObjectType(
-                List.of(new FieldDefinition("fieldInteger", PrimitiveTypes.INTEGER),
-                        new FieldDefinition("fieldString", PrimitiveTypes.STRING)
-                ));
-        
         assertThat(objectType.isCompatible(asJsonNode(new SomeObject(1, "text"))), equalTo(true));
     }
 
     @Test
     void isNotCompatibleWithPrimitiveType() {
-        ListType listType = new ListType(PrimitiveTypes.INTEGER);
-
-        assertThat(listType.isCompatible(asJsonNode(3)), equalTo(false));
+        assertThat(objectType.isCompatible(asJsonNode(3)), equalTo(false));
     }
 
     @Test
     void isNotCompatibleWithListType() {
-        ListType listType = new ListType(PrimitiveTypes.INTEGER);
-
-        assertThat(listType.isCompatible(asJsonNode(List.of("x", "y"))), equalTo(false));
+        assertThat(objectType.isCompatible(asJsonNode(List.of("x", "y"))), equalTo(false));
     }
     
+    @Test
+    void isNotCompatibleWithNull() {
+        assertThat(objectType.isCompatible(asJsonNode(null)), equalTo(false));
+    }
 }
