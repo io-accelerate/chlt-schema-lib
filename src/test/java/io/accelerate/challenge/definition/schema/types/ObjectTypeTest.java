@@ -16,8 +16,8 @@ class ObjectTypeTest {
     @BeforeEach
     void setUp() {
         objectType = new ObjectType(
-                List.of(new FieldDefinition("fieldInteger", PrimitiveTypes.INTEGER),
-                        new FieldDefinition("fieldString", PrimitiveTypes.STRING)
+                List.of(new FieldDefinition("fieldInteger", PrimitiveType.INTEGER),
+                        new FieldDefinition("fieldString", PrimitiveType.STRING)
                 ));
     }
 
@@ -34,6 +34,7 @@ class ObjectTypeTest {
         assertThat(ObjectType.from(SomeObject.class), equalTo(objectType));
     }
 
+    @SuppressWarnings("unused")
     static class SomeFieldClass {
         public int fieldInteger;
         public String fieldString;

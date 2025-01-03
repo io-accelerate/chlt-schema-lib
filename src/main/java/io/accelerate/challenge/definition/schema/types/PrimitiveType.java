@@ -5,7 +5,7 @@ import io.accelerate.challenge.definition.schema.TypeDefinition;
 
 import java.util.List;
 
-public enum PrimitiveTypes implements TypeDefinition {
+public enum PrimitiveType implements TypeDefinition {
     STRING("string", List.of(String.class)), 
     INTEGER("integer", List.of(Integer.class, int.class)), 
     BOOLEAN("boolean", List.of(Boolean.class, boolean.class));
@@ -13,13 +13,13 @@ public enum PrimitiveTypes implements TypeDefinition {
     private final String displayName;
     private final List<Class<?>> compatibleClasses;
 
-    PrimitiveTypes(String displayName, List<Class<?>> compatibleClasses) {
+    PrimitiveType(String displayName, List<Class<?>> compatibleClasses) {
         this.displayName = displayName;
         this.compatibleClasses = compatibleClasses;
     }
     
-    public static PrimitiveTypes fromDisplayName(String displayName) {
-        for (PrimitiveTypes type : values()) {
+    public static PrimitiveType fromDisplayName(String displayName) {
+        for (PrimitiveType type : values()) {
             if (type.displayName.equals(displayName)) {
                 return type;
             }
@@ -27,8 +27,8 @@ public enum PrimitiveTypes implements TypeDefinition {
         throw new IllegalArgumentException("No enum constant found for " + displayName);
     }
 
-    public static PrimitiveTypes fromReferencedClass(Class<?> referencedClass) {
-        for (PrimitiveTypes type : values()) {
+    public static PrimitiveType fromReferencedClass(Class<?> referencedClass) {
+        for (PrimitiveType type : values()) {
             if (type.compatibleClasses.contains(referencedClass)) {
                 return type;
             }

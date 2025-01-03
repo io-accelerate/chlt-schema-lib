@@ -2,7 +2,7 @@ package io.accelerate.challenge.definition;
 
 import io.accelerate.challenge.definition.loader.ChallengeDefinitionLoader;
 import io.accelerate.challenge.definition.schema.*;
-import io.accelerate.challenge.definition.schema.types.PrimitiveTypes;
+import io.accelerate.challenge.definition.schema.types.PrimitiveType;
 import io.accelerate.challenge.definition.validator.ChallengeDefinitionValidator;
 import io.accelerate.challenge.definition.validator.ValidationResult;
 import io.accelerate.challenge.definition.writer.ChallengeDefinitionWriter;
@@ -33,8 +33,8 @@ class ChallengeDefinitionAcceptanceTest {
                         "TST_R1",
                         "A test round",
                         MethodDefinitions.of(new MethodDefinition("someMethod",
-                                List.of(new ParamDefinition("some input", PrimitiveTypes.STRING)),
-                                new ReturnDefinition("result", PrimitiveTypes.INTEGER))),
+                                List.of(new ParamDefinition("some input", PrimitiveType.STRING)),
+                                new ReturnDefinition("result", PrimitiveType.INTEGER))),
                         List.of(
                                 new RoundTest("TST_R1_1",
                                         new MethodCall("someMethod", List.of("foo")),

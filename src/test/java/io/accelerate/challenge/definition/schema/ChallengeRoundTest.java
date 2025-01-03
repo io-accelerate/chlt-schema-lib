@@ -1,6 +1,6 @@
 package io.accelerate.challenge.definition.schema;
 
-import io.accelerate.challenge.definition.schema.types.PrimitiveTypes;
+import io.accelerate.challenge.definition.schema.types.PrimitiveType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,8 +17,8 @@ class ChallengeRoundTest {
                 "TST_R1",
                 "A test round",
                 MethodDefinitions.of(new MethodDefinition("someMethod", 
-                        List.of(new ParamDefinition("some input", PrimitiveTypes.STRING)), 
-                        new ReturnDefinition("result", PrimitiveTypes.INTEGER))),
+                        List.of(new ParamDefinition("some input", PrimitiveType.STRING)), 
+                        new ReturnDefinition("result", PrimitiveType.INTEGER))),
                 List.of()
         );
 

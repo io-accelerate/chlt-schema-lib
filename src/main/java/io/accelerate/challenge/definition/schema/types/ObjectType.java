@@ -22,12 +22,12 @@ public class ObjectType implements TypeDefinition {
         if (referencedClass.isRecord()) {
             RecordComponent[] recordComponents = referencedClass.getRecordComponents();
             fields = Arrays.stream(recordComponents)
-                    .map(recordComponent -> new FieldDefinition(recordComponent.getName(), PrimitiveTypes.fromReferencedClass(recordComponent.getType())))
+                    .map(recordComponent -> new FieldDefinition(recordComponent.getName(), PrimitiveType.fromReferencedClass(recordComponent.getType())))
                     .toList();
         } else {
             Field[] javaFields = referencedClass.getFields();
             fields = Arrays.stream(javaFields)
-                    .map(field -> new FieldDefinition(field.getName(), PrimitiveTypes.fromReferencedClass(field.getType())))
+                    .map(field -> new FieldDefinition(field.getName(), PrimitiveType.fromReferencedClass(field.getType())))
                     .toList();
         }
         return new ObjectType(fields);
