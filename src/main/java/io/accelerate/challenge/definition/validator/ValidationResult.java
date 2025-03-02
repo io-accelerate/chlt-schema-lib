@@ -10,20 +10,32 @@ public record ValidationResult(ValidationFailure maybeValidationFailure) {
 
     public void printToStdErr() {
         if (maybeValidationFailure != null) {
-            printValidationErrors(maybeValidationFailure, 0);
+            System.err.println(validationErrorsToString(maybeValidationFailure, 0));
         }
     }
 
-    private static void printValidationErrors(ValidationFailure e, int level) {
+    @Override
+    public String toString() {
+        if (maybeValidationFailure != null) {
+            return "ValidationResult - failed\n" + validationErrorsToString(maybeValidationFailure, 0) ;
+        } else {
+            return "ValidationResult - passed\n";
+        }
+    }
+
+    private static String validationErrorsToString(ValidationFailure e, int level) {
         // Indentation for better readability
         String indent = "  ".repeat(level);
 
+        StringBuilder errorMessage = new StringBuilder();
         // Print the current error
-        System.err.println(indent + "- " + e.getMessage());
+        errorMessage.append(indent).append("- ").append(e.getMessage()).append("\n");
 
         // Recursively print sub-errors (caused by nested schemas or array items)
         for (ValidationFailure subError : e.getCauses()) {
-            printValidationErrors(subError, level + 1);
+            errorMessage.append(validationErrorsToString(subError, level + 1));
         }
+        
+        return errorMessage.toString();
     }
 }

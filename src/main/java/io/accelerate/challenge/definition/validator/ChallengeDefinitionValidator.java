@@ -7,6 +7,7 @@ import io.accelerate.challenge.definition.Constants;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.nio.file.Path;
 
 public class ChallengeDefinitionValidator {
@@ -28,4 +29,12 @@ public class ChallengeDefinitionValidator {
         ValidationFailure maybeValidationFailure = validator.validate(yamlFileAsJson, URI.create("mem://local-loading"));
         return new ValidationResult(maybeValidationFailure);
     }
+
+    public ValidationResult validate(URL challengeURL) throws IOException {
+        Object yamlData = objectMapper.readValue(challengeURL, Object.class);
+        String yamlFileAsJson = jsonMapper.writeValueAsString(yamlData);
+        ValidationFailure maybeValidationFailure = validator.validate(yamlFileAsJson, URI.create("mem://local-loading"));
+        return new ValidationResult(maybeValidationFailure);
+    }
+
 }

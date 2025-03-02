@@ -34,18 +34,21 @@ class ChallengeDefinitionAcceptanceTest {
                         "A test round",
                         MethodDefinitions.of(new MethodDefinition("someMethod",
                                 List.of(new ParamDefinition("some input", PrimitiveType.STRING)),
-                                new ReturnDefinition("result", PrimitiveType.INTEGER))),
+                                new ReturnDefinition("result", PrimitiveType.STRING))),
                         List.of(
                                 new RoundTest("TST_R1_1",
                                         new MethodCall("someMethod", List.of("foo")),
-                                        new RoundTestAssertion(RoundTestAssertionType.EQUALS, 123)),
+                                        new RoundTestAssertion(RoundTestAssertionType.EQUALS, "some_value1")),
                                 new RoundTest("TST_R1_2",
                                         new MethodCall("someMethod", List.of("bar")),
-                                        new RoundTestAssertion(RoundTestAssertionType.EQUALS, 456))
+                                        new RoundTestAssertion(RoundTestAssertionType.CONTAINS_STRING, "some")),
+                                new RoundTest("TST_R1_3",
+                                        new MethodCall("someMethod", List.of("bar")),
+                                        new RoundTestAssertion(RoundTestAssertionType.CONTAINS_STRING, "some"))
                         ))
                 )
         );
-
+        
         // Serialize using ChallengeDefinitionWriter
         ChallengeDefinitionWriter writer = new ChallengeDefinitionWriter(tempDir.toFile());
         Path writtenChallengeFilePath = writer.writeChallengeToFile(originalChallenge);
