@@ -47,8 +47,15 @@ class MethodDefinitionsTest {
                  - param[0] = some param 2
                  - @return = some return type\
                 """));
-        
     }
     
+    @Test
+    void render_no_methods_display_descriptions() {
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection") MethodDefinitions methodDefinitions = new MethodDefinitions();
+
+        String displayDescription = methodDefinitions.getDisplayDescription();
+
+        assertThat(displayDescription, is(""));
+    }
     
 }
