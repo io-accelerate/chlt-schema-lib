@@ -4,7 +4,8 @@ public enum RoundTestAssertionType {
     EQUALS("equals", TypeConstraint.MATCHING_RETURN_TYPE),
     IS_NULL("isNull", TypeConstraint.ANY),
     CONTAINS_STRING("containsString", TypeConstraint.STRING),
-    CONTAINS_STRING_IGNORING_CASE("containsStringIgnoringCase", TypeConstraint.STRING);
+    CONTAINS_STRING_IGNORING_CASE("containsStringIgnoringCase", TypeConstraint.STRING),
+    MULTILINE_STRING_EQUALS("multilineStringEquals", TypeConstraint.STRING);
 
     private final String displayName;
     private final TypeConstraint typeConstraint;

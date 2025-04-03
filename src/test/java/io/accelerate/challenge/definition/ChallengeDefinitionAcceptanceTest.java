@@ -44,7 +44,7 @@ class ChallengeDefinitionAcceptanceTest {
                                         new RoundTestAssertion(RoundTestAssertionType.CONTAINS_STRING, "some")),
                                 new RoundTest("TST_R1_3",
                                         new MethodCall("someMethod", List.of("bar")),
-                                        new RoundTestAssertion(RoundTestAssertionType.CONTAINS_STRING, "some"))
+                                        new RoundTestAssertion(RoundTestAssertionType.MULTILINE_STRING_EQUALS, "some"))
                         ))
                 )
         );
