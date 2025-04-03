@@ -57,6 +57,18 @@ class RoundTestAssertionTest {
     }
 
     @Test
+    void shouldSerializeAndDeserializeWithMultilineStringEquals() throws JsonProcessingException {
+        RoundTestAssertion object = new RoundTestAssertion(RoundTestAssertionType.MULTILINE_STRING_EQUALS, "some_value");
+
+        assertSerializesTo("""
+                {
+                  "multilineStringEquals" : "some_value"
+                }
+                """, object);
+        assertDeserializesToIdenticalObject(object, object.getClass());
+    }
+
+    @Test
     void shouldSerializeAndDeserializeWithNullCheck() throws JsonProcessingException {
         RoundTestAssertion object = new RoundTestAssertion(RoundTestAssertionType.IS_NULL, true);
 
