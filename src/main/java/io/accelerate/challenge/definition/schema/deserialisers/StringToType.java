@@ -4,10 +4,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import io.accelerate.challenge.definition.schema.TypeDefinition;
-import io.accelerate.challenge.definition.schema.types.FieldDefinition;
-import io.accelerate.challenge.definition.schema.types.ListType;
-import io.accelerate.challenge.definition.schema.types.ObjectType;
-import io.accelerate.challenge.definition.schema.types.PrimitiveType;
+import io.accelerate.challenge.definition.schema.types.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +18,13 @@ public class StringToType extends JsonDeserializer<TypeDefinition> {
 
         if (value.startsWith("list")) {
             // Extract the type from the string "list(<type>)"
-            String type = value.substring(value.indexOf("(") + 1, value.indexOf(")"));
+            String type = extractTypeFromParentheses(value);
             return new ListType(PrimitiveType.fromDisplayName(type));
+        } else
+        if (value.startsWith("map")) {
+            // Extract the type from the string "map(<type>)"
+            String type = extractTypeFromParentheses(value);
+            return new MapType(PrimitiveType.fromDisplayName(type));
         } else
         if (value.startsWith("object")) {
             // Extract the fields from the string "object({someField=integer,otherField=string})"
@@ -39,5 +42,10 @@ public class StringToType extends JsonDeserializer<TypeDefinition> {
         } else {
             return PrimitiveType.fromDisplayName(value);
         }
+    }
+
+    @NotNull
+    private static String extractTypeFromParentheses(String value) {
+        return value.substring(value.indexOf("(") + 1, value.indexOf(")"));
     }
 }

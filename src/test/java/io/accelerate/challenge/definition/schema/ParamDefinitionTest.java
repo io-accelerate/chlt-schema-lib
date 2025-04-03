@@ -1,10 +1,7 @@
 package io.accelerate.challenge.definition.schema;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.accelerate.challenge.definition.schema.types.FieldDefinition;
-import io.accelerate.challenge.definition.schema.types.ListType;
-import io.accelerate.challenge.definition.schema.types.ObjectType;
-import io.accelerate.challenge.definition.schema.types.PrimitiveType;
+import io.accelerate.challenge.definition.schema.types.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -37,6 +34,20 @@ class ParamDefinitionTest {
                 {
                   "description" : "some name",
                   "type" : "list(string)"
+                }
+                """, paramDefinition);
+        assertDeserializesToIdenticalObject(paramDefinition, paramDefinition.getClass());
+    }
+
+    @Test
+    void mapType() throws JsonProcessingException {
+        ParamDefinition paramDefinition = new ParamDefinition("some name",
+                new MapType(PrimitiveType.INTEGER));
+
+        assertSerializesTo("""
+                {
+                  "description" : "some name",
+                  "type" : "map(integer)"
                 }
                 """, paramDefinition);
         assertDeserializesToIdenticalObject(paramDefinition, paramDefinition.getClass());

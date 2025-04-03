@@ -39,6 +39,13 @@ class ListTypeTest {
     }
 
     @Test
+    void isNotCompatibleWithMixedList() {
+        ListType listType = new ListType(PrimitiveType.INTEGER);
+
+        assertThat(listType.isCompatible(asJsonNode(List.of(1, "y"))), equalTo(false));
+    }
+
+    @Test
     void isNotCompatibleWithNullType() {
         ListType listType = new ListType(PrimitiveType.INTEGER);
 
