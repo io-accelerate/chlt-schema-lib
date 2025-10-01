@@ -25,7 +25,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
 
     // JSON Schema validation
-    implementation 'com.github.erosb:json-sKema:0.21.0'
+    implementation 'com.github.erosb:json-sKema:0.26.0'
 
     // Testing framework
     testImplementation platform('org.junit:junit-bom:5.12.1')
