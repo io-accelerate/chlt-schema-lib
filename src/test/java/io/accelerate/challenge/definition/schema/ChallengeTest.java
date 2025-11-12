@@ -20,7 +20,7 @@ class ChallengeTest {
 
         assertSerializesTo("""
                 {
-                  "$schema" : "https://get.accelerate.io/challenge-toolkit/schema/version/0.2.2/schema.yaml",
+                  "$schema" : "https://get.accelerate.io/challenge-toolkit/schema/version/0.2.4/schema.yaml",
                   "id" : "TST",
                   "version" : 1,
                   "name" : "Test Challenge",
