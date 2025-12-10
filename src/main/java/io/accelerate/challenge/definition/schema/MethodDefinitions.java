@@ -33,7 +33,7 @@ public class MethodDefinitions extends ArrayList<MethodDefinition> {
         StringBuilder sb = new StringBuilder();
         if (size() > 0) {
             String maybePluralSuffix = this.size() > 1 ? "s" : "";
-            sb.append("In order to complete the round you need to implement the following method").append(maybePluralSuffix).append(":").append("\n\n");
+            sb.append("The server side tests for this round will exercise the following method").append(maybePluralSuffix).append(":").append("\n\n");
             String methods = this.stream().map(MethodDefinition::getDisplayDescription).collect(Collectors.joining("\n\n"));
             sb.append(methods);
         }

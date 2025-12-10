@@ -37,7 +37,7 @@ class MethodDefinitionsTest {
         String displayDescription = methodDefinitions.getDisplayDescription();
 
         assertThat(displayDescription, is("""
-                In order to complete the round you need to implement the following methods:
+                The server side tests for this round will exercise the following methods:
                 
                 methodName(integer) -> string
                  - param[0] = some param 1
